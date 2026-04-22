@@ -48,31 +48,55 @@
 _os="$(
   uname \
     -o)"
-if [[ "${_os}" == "Android" ]]; then
-  _libc="ndk-sysroot"
-  _compiler="clang"
-  _libcompiler="llvm-libs"
-elif [[ "${_os}" == "GNU/Linux" ]]; then
-  _libc="glibc"
-  _compiler="gcc"
-  _libcompiler="libgcc"
-elif [[ "${_os}" == "Msys" ]]; then
-  _libc="msys2-w32api-runtime"
-  _libc_headers="msys2-w32api-headers"
-  _compiler="gcc"
-  _libcompiler="gcc-libs"
-  _sh="sh"
-else
-  _msg=(
-    "Unknown os '${_os}'."
-  )
-  msg \
-    "${_msg[*]}"
-  _libc="msys2-w32api-runtime"
-  _libc_headers="msys2-w32api-headers"
-  _compiler="gcc"
-  _libcompiler="gcc-libs"
-  _sh="sh"
+if [[ ! -v "_libc" ]]; then
+  if [[ "${_os}" == "Android" ]]; then
+    # Seems to require strverscmp
+    # _libc="ndk-sysroot"
+    # Needs to be implemented
+    # in reallymakepkg
+    _libc="glibc"
+  elif [[ "${_os}" == "GNU/Linux" ]]; then
+    _libc="glibc"
+  elif [[ "${_os}" == "Msys" ]]; then
+    _libc="msys2-w32api-runtime"
+  else
+    _libc="glibc"
+  fi
+fi
+if [[ ! -v "_compiler" ]]; then
+  if [[ "${_os}" == "Android" ]]; then
+    _compiler="clang"
+    # Needs to be implemented
+    # in reallymakepkg
+    _compiler="gcc"
+  elif [[ "${_os}" == "GNU/Linux" ]]; then
+    _compiler="gcc"
+  elif [[ "${_os}" == "Msys" ]]; then
+    _compiler="gcc"
+  else
+    _compiler="gcc"
+  fi
+fi
+if [[ ! -v "_libcompiler" ]]; then
+  if [[ "${_os}" == "Android" ]]; then
+    # _libcompiler="llvm-libs"
+    # Needs to be implemented
+    # in reallymakepkg
+    _libcompiler="gcc-libs"
+  elif [[ "${_os}" == "GNU/Linux" ]]; then
+    _libcompiler="gcc-libs"
+  elif [[ "${_os}" == "Msys" ]]; then
+    _libcompiler="gcc-libs"
+  else
+    _libcompiler="gcc-libs"
+  fi
+fi
+if [[ ! -v "_libc_headers" ]]; then
+  if [[ "${_os}" == "Msys" ]]; then
+    _libc_headers="msys2-w32api-headers"
+  else
+    _libc_headers="msys2-w32api-headers"
+  fi
 fi
 _evmfs_available="$(
   command \
