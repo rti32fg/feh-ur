@@ -205,6 +205,7 @@ makedepends=(
   "${_compiler}"
   "${_libcompiler}"
   "${_libc}"
+  'libexif'
   'imlib2' #'libImlib2.so'
   'libxt'
   'libxinerama' #'libXinerama.so'
@@ -381,12 +382,6 @@ build() {
     "${srcdir}/${_tarname}"
   make \
     "${_make_opts[@]}"
-  make PREFIX=/usr \
-    exif=1 \
-    help=1 \
-    inotify=1 \
-    magic=1 \
-    stat64=1
 }
 
 package() {
