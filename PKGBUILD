@@ -101,6 +101,9 @@ if [[ ! -v "_docs" ]]; then
     _docs="false"
   fi
 fi
+if [[ ! -v "imagemagick" ]]; then
+  _imagemagick="true"
+fi
 _pkg=feh
 if [[ ! -v "_git_http" ]]; then
   if [[ "${_git_service}" == "github" ]]; then
@@ -212,6 +215,11 @@ makedepends=(
   'libxt'
   "xorgproto"
 )
+if [[ "${_imagemagick}" == "true" ]]; then
+  makedepends+=(
+    'imagemagick'
+  )
+fi
 if [[ "${_os}" == "Msys" ]]; then
   makedepends+=(
     "${_libc_headers}"
@@ -375,11 +383,19 @@ build() {
   _make_opts+=(
     PREFIX="/usr"
     exif=1
-    help=1
     inotify=1
-    magic=1
     stat64=1
   )
+  if [[ "${_docs}" == "true" ]]; then
+    _make_opts+=(
+      help=1
+    )
+  fi
+  if [[ "${_imagemagick}" == "true" ]]; then
+    _make_opts+=(
+      magic=1
+    )
+  fi
   cd \
     "${srcdir}/${_tarname}"
   make \
