@@ -201,18 +201,12 @@ depends=(
   'libx11' #'libX11.so'
   'libxinerama' #'libXinerama.so'
 )
-_imagemagick_optdepends=(
-  'imagemagick:'
-    "support more file formats"
-)
-optdepends=(
-  "${_imagemagick_optdepends[*]}"
-)
 makedepends=(
   "${_compiler}"
   "${_libcompiler}"
   "${_libc}"
   'libxt'
+  'libxinerama' #'libXinerama.so'
 )
 if [[ "${_os}" == "Msys" ]]; then
   makedepends+=(
@@ -225,24 +219,12 @@ if [[ "${_git}" == "true" ]]; then
     "git"
   )
 fi
-validpgpkeys=(
-  # Birte Kristina Friesel
-  #   <birte.friesel@uni-osnabrueck.de>
-  '429AF7B8E9EC9C0709D32F7F5333FB7712E24FE8'
-  # Daniel Friesel
-  #  <derf@finalrewind.org> 
-  '781BB7071C6BF648EAEB08A1100D5BFB5166E005'
-  # Derf Null
-  #   <derf@ccc.de>
-  '64FE6EC055560F9EF13A304419E6E524EBB177BA'
-  # Truocolo
-  #   <truocolo@aol.com>
-  '97E989E6CF1D2C7F7A41FF9F95684DBE23D6A3E9'
-  #   <truocolo@0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b>
-  'F690CBC17BD1F53557290AF51FC17D540D0ADEED'
-  # Pellegrino Prevete (dvorak)
-  #   <dvorak@0x87003Bd6C074C713783df04f36517451fF34CBEf>
-  '12D8E3D7888F741E89F86EE0FEC8567A644F1D16'
+_imagemagick_optdepends=(
+  'imagemagick:'
+    "support more file formats"
+)
+optdepends=(
+  "${_imagemagick_optdepends[*]}"
 )
 source=()
 sha256sums=()
@@ -254,12 +236,12 @@ _tarfile="${_tarname}.${_archive_format}"
 if [[ "${_offline}" == "true" ]]; then
   _url="file://${HOME}/${pkgname}"
 fi
-_bundle_sum="e14a28353ad4a48b63c940e99f71788cb153b6e7d2c1c1b5269ff8a3075a468d"
-_bundle_sig_sum="a44169ce325cda0d3337d3cb9b708b7fa5b00d5013986009293d6bf5cc6ebcee"
-_sum="4862131058a9646e54439f98ea21de28ebb71bd8faaf94e8d2aa6b24f8d126f1"
-_sig_sum="e6a9261dffaee17f84eb50eb1be762c324fc22d3bbb9b4a26da3f27e83300d3b"
+_sum="1d653b2fcb0b6a159ce05531643ef9107914bcacb6de04fe6b9767dc629ceeb1"
+_sig_sum="35e871f2ad17da6aaa3cebfa83a1b203678330833b31051de254f78792bccb32"
 _github_sum="dc549aa6952fd1fda8b4dd9750101e63d2c7c0424f81b9d08ffbd574cc727b82"
 _github_sig_sum="b3d0c5d3835fa323a92c7f2e26ad438b7e683d8c381f4182183c25ebc42fd5da"
+_bundle_sum="e14a28353ad4a48b63c940e99f71788cb153b6e7d2c1c1b5269ff8a3075a468d"
+_bundle_sig_sum="a44169ce325cda0d3337d3cb9b708b7fa5b00d5013986009293d6bf5cc6ebcee"
 if [[ "${_git}" == "true" ]]; then
   _sum="${_bundle_sum}"
   _sig_sum="${_bundle_sig_sum}"
@@ -323,6 +305,25 @@ source+=(
 )
 sha256sums+=(
   "${_sum}"
+)
+validpgpkeys=(
+  # Birte Kristina Friesel
+  #   <birte.friesel@uni-osnabrueck.de>
+  '429AF7B8E9EC9C0709D32F7F5333FB7712E24FE8'
+  # Daniel Friesel
+  #  <derf@finalrewind.org> 
+  '781BB7071C6BF648EAEB08A1100D5BFB5166E005'
+  # Derf Null
+  #   <derf@ccc.de>
+  '64FE6EC055560F9EF13A304419E6E524EBB177BA'
+  # Truocolo
+  #   <truocolo@aol.com>
+  '97E989E6CF1D2C7F7A41FF9F95684DBE23D6A3E9'
+  #   <truocolo@0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b>
+  'F690CBC17BD1F53557290AF51FC17D540D0ADEED'
+  # Pellegrino Prevete (dvorak)
+  #   <dvorak@0x87003Bd6C074C713783df04f36517451fF34CBEf>
+  '12D8E3D7888F741E89F86EE0FEC8567A644F1D16'
 )
 
 _git_unbundle() {
